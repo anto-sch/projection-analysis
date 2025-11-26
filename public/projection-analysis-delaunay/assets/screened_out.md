@@ -1,0 +1,1 @@
+Thank you for participating in the study. You may click this link and return to Prolific: [https://app.prolific.com/submissions/complete?cc=C1CYTLLL](https://app.prolific.com/submissions/complete?cc=C1CYTLLL)

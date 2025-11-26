@@ -1,0 +1,680 @@
+{
+  "$schema": "https://raw.githubusercontent.com/revisit-studies/study/v2.3.2/src/parser/StudyConfigSchema.json",
+  "studyMetadata": {
+    "title": "Scatterplot Analysis with Visual Enrichments",
+    "version": "pilot",
+    "authors": [
+      "Waqar Hassan",
+      "Antonia Schlieder",
+      "Filip Sadlp",
+      "Luis Gustavo Nonato"
+    ],
+    "date": "2025-11-03",
+    "description": "A study comparing the analysis of t-SNE projections with different visual metrics.",
+    "organizations": [
+      "University of Sao Paulo",
+      "Heidelberg University"
+    ]
+  },
+  "uiConfig": {
+    "contactEmail": "antonia.schlieder@iwr.uni-heidelberg.de",
+    "helpTextPath": "projection-analysis/assets/tutorial4delaunay.md",
+    "logoPath": "revisitAssets/revisitLogoSquare.svg",
+    "withProgressBar": true,
+    "autoDownloadStudy": false,
+    "withSidebar": true,
+    "studyEndMsg": "Thank you for completing the study. You may click this link and return to Prolific: [https://app.prolific.com/submissions/complete?cc=CE96X7ST&PROLIFIC_ID={PARTICIPANT_ID}](https://app.prolific.com/submissions/complete?cc=CE96X7ST&PROLIFIC_ID={PARTICIPANT_ID})",
+    "urlParticipantIdParam": "PROLIFIC_PID",
+    "participantNameField": "introduction.prolificId"
+  },
+  "importedLibraries": [
+    "previs_delaunay"
+  ],
+  "baseComponents": {
+    "scatterPlot": {
+      "description": "A scatterplot and accompanying visual metrics.",
+      "type": "react-component",
+      "path": "projection-analysis/assets/BrushPlot.tsx",
+      "nextButtonLocation": "sidebar",
+      "instructionLocation": "sidebar",
+      "response": []
+    },
+    "delaunayScatterPlot": {
+      "description": "A scatterplot and accompanying visual metrics.",
+      "type": "react-component",
+      "path": "projection-analysis/assets/DelaunayBrushPlot.tsx",
+      "nextButtonLocation": "sidebar",
+      "instructionLocation": "sidebar",
+      "response": []
+    },
+    "clusterIdentificationScatterPlot": {
+      "description": "An interactive scatterplot for identifying clusters.",
+      "type": "react-component",
+      "path": "projection-analysis/assets/ClusterIdentificationBrushPlot.tsx",
+      "nextButtonLocation": "sidebar",
+      "instructionLocation": "sidebar",
+      "response": []
+    },
+    "post-task": {
+      "description": "post-task questionnaire",
+      "instruction": "",
+      "type": "questionnaire",
+      "response": [
+        {
+          "id": "seq",
+          "prompt": "1. Overall, the task was ...",
+          "location": "aboveStimulus",
+          "type": "likert",
+          "numItems": 7,
+          "leftLabel": "very difficult",
+          "rightLabel": "very easy",
+          "required": true,
+          "withDivider": true
+        },
+        {
+          "id": "confidence",
+          "prompt": "2. How certain are you that you selected the correct answer?",
+          "location": "aboveStimulus",
+          "type": "likert",
+          "numItems": 7,
+          "leftLabel": "very uncertain",
+          "rightLabel": "very certain",
+          "required": true,
+          "withDivider": true
+        }
+      ]
+    }
+  },
+  "components": {
+    "screenedOut": {
+      "type": "markdown",
+      "path": "projection-analysis/assets/screened_out.md",
+      "nextButtonText": "",
+      "response": []
+    },
+    "introduction": {
+      "type": "markdown",
+      "path": "projection-analysis/assets/introduction.md",
+      "response": []
+    },
+    "consent": {
+      "type": "markdown",
+      "path": "projection-analysis/assets/consent.md",
+      "nextButtonText": "Agree",
+      "response": [
+        {
+          "id": "prolificId",
+          "prompt": "Please enter your Prolific ID",
+          "required": true,
+          "location": "belowStimulus",
+          "type": "shortText",
+          "placeholder": "Prolific ID",
+          "paramCapture": "PROLIFIC_PID"
+        },
+        {
+          "id": "accept",
+          "prompt": "Do you consent to the study and wish to continue?",
+          "requiredValue": "Accept",
+          "location": "belowStimulus",
+          "type": "radio",
+          "options": [
+            "Decline",
+            "Accept"
+          ]
+        }
+      ]
+    },
+    "tutorial1": {
+      "type": "markdown",
+      "path": "projection-analysis/assets/tutorial1.md",
+      "response": []
+    },
+    "tutorial2": {
+      "type": "markdown",
+      "path": "projection-analysis/assets/tutorial2.md",
+      "response": []
+    },
+    "tutorial3": {
+      "type": "markdown",
+      "path": "projection-analysis/assets/tutorial3delaunay.md",
+      "response": []
+    },
+    "tutorial4": {
+      "type": "markdown",
+      "path": "projection-analysis/assets/tutorial4delaunay.md",
+      "response": []
+    },
+    "delaunay_identification": {
+      "instruction": "Identify all clusters in the scatterplot, i.e. points that form a larger group.",
+      "type": "react-component",
+      "path": "projection-analysis/assets/ClusterIdentificationBrushPlot.tsx",
+      "parameters": {
+        "group": "delaunay",
+        "dataset": "cube_diff_size_diff_dist/cube_diff_size_diff_dist_with_labels",
+        "x": "x",
+        "y": "y",
+        "ids": "id",
+        "brushType": "Paintbrush Selection",
+        "visualization": "cube_diff_size_diff_dist/delaunay_cube_diff_size_diff_dist",
+        "clusters": [],
+        "noClusters": "noClustersAnswer"
+      },
+      "nextButtonLocation": "sidebar",
+      "response": [
+        {
+          "id": "noClustersAnswer",
+          "prompt": "Number of selected clusters:",
+          "required": true,
+          "location": "sidebar",
+          "type": "reactive"
+        }
+      ]
+    },
+    "delaunay_max_distance": {
+      "baseComponent": "delaunayScatterPlot",
+      "instruction": "Which two clusters are furthest apart from each other?",
+      "parameters": {
+        "group": "delaunay",
+        "dataset": "cube_diff_size_diff_dist/cube_diff_size_diff_dist_with_labels",
+        "x": "x",
+        "y": "y",
+        "ids": "id",
+        "category": "class",
+        "brushType": "disabled",
+        "visualization": "cube_diff_size_diff_dist/delaunay_cube_diff_size_diff_dist"
+      },
+      "response": [
+        {
+          "id": "response",
+          "prompt": "Answer:",
+          "location": "sidebar",
+          "type": "checkbox",
+          "options": [
+            "blue cluster",
+            "purple cluster",
+            "orange cluster",
+            "yellow cluster"
+          ],
+          "minSelections": 2,
+          "maxSelections": 2
+        }
+      ],
+      "correctAnswer": [
+        {
+          "id": "response",
+          "answer": [
+            "blue cluster",
+            "yellow cluster"
+          ]
+        }
+      ]
+    },
+    "delaunay_min_distance": {
+      "baseComponent": "delaunayScatterPlot",
+      "instruction": "Which two clusters are closest to each other?",
+      "parameters": {
+        "group": "delaunay",
+        "dataset": "cube_diff_size_diff_dist/cube_diff_size_diff_dist_with_labels",
+        "x": "x",
+        "y": "y",
+        "ids": "id",
+        "category": "class",
+        "brushType": "disabled",
+        "visualization": "cube_diff_size_diff_dist/delaunay_cube_diff_size_diff_dist"
+      },
+      "response": [
+        {
+          "id": "response",
+          "prompt": "Answer:",
+          "location": "sidebar",
+          "type": "checkbox",
+          "options": [
+            "blue cluster",
+            "purple cluster",
+            "orange cluster",
+            "yellow cluster"
+          ],
+          "minSelections": 2,
+          "maxSelections": 2
+        }
+      ],
+      "correctAnswer": [
+        {
+          "id": "response",
+          "answer": [
+            "purple cluster",
+            "yellow cluster"
+          ]
+        }
+      ]
+    },
+    "delaunay_max_density": {
+      "baseComponent": "delaunayScatterPlot",
+      "instruction": "Which cluster is the most dense, i.e. in which cluster are the points closest together?",
+      "parameters": {
+        "group": "delaunay",
+        "dataset": "cube_diff_size_diff_dist/cube_diff_size_diff_dist_with_labels",
+        "x": "x",
+        "y": "y",
+        "ids": "id",
+        "category": "class",
+        "brushType": "disabled",
+        "visualization": "cube_diff_size_diff_dist/delaunay_cube_diff_size_diff_dist"
+      },
+      "response": [
+        {
+          "id": "response",
+          "prompt": "Answer:",
+          "location": "sidebar",
+          "type": "radio",
+          "options": [
+            "blue cluster",
+            "purple cluster",
+            "orange cluster",
+            "yellow cluster"
+          ]
+        }
+      ],
+      "correctAnswer": [
+        {
+          "id": "response",
+          "answer": "yellow cluster"
+        }
+      ]
+    },
+    "delaunay_min_density": {
+      "baseComponent": "delaunayScatterPlot",
+      "instruction": "Which cluster is the least dense, i.e. in which cluster are the points spread furthest apart?",
+      "parameters": {
+        "group": "delaunay",
+        "dataset": "cube_diff_size_diff_dist/cube_diff_size_diff_dist_with_labels",
+        "x": "x",
+        "y": "y",
+        "ids": "id",
+        "category": "class",
+        "brushType": "disabled",
+        "visualization": "cube_diff_size_diff_dist/delaunay_cube_diff_size_diff_dist"
+      },
+      "response": [
+        {
+          "id": "response",
+          "prompt": "Answer:",
+          "location": "sidebar",
+          "type": "radio",
+          "options": [
+            "blue cluster",
+            "purple cluster",
+            "orange cluster",
+            "yellow cluster"
+          ]
+        }
+      ],
+      "correctAnswer": [
+        {
+          "id": "response",
+          "answer": "blue cluster"
+        }
+      ]
+    },
+    "baseline_identification": {
+      "instruction": "Identify all clusters in the scatterplot, i.e. points that form a larger group.",
+      "type": "react-component",
+      "path": "projection-analysis/assets/ClusterIdentificationBrushPlot.tsx",
+      "parameters": {
+        "group": "baseline",
+        "dataset": "cube_diff_size_diff_dist/cube_diff_size_diff_dist_with_labels",
+        "x": "x",
+        "y": "y",
+        "ids": "id",
+        "brushType": "Paintbrush Selection",
+        "visualization": "cube_diff_size_diff_dist/baseline_cube_diff_size_diff_dist",
+        "clusters": [],
+        "noClusters": "noClustersAnswer"
+      },
+      "nextButtonLocation": "sidebar",
+      "response": [
+        {
+          "id": "noClustersAnswer",
+          "prompt": "Number of selected clusters:",
+          "required": true,
+          "location": "sidebar",
+          "type": "reactive"
+        }
+      ]
+    },
+    "baseline_max_distance": {
+      "baseComponent": "delaunayScatterPlot",
+      "instruction": "Which two clusters are furthest apart from each other?",
+      "parameters": {
+        "group": "baseline",
+        "dataset": "cube_diff_size_diff_dist/cube_diff_size_diff_dist_with_labels",
+        "x": "x",
+        "y": "y",
+        "ids": "id",
+        "category": "class",
+        "brushType": "disabled",
+        "visualization": "cube_diff_size_diff_dist/baseline_cube_diff_size_diff_dist"
+      },
+      "response": [
+        {
+          "id": "response",
+          "prompt": "Answer:",
+          "location": "sidebar",
+          "type": "checkbox",
+          "options": [
+            "blue cluster",
+            "purple cluster",
+            "orange cluster",
+            "yellow cluster"
+          ],
+          "minSelections": 2,
+          "maxSelections": 2
+        }
+      ],
+      "correctAnswer": [
+        {
+          "id": "response",
+          "answer": [
+            "blue cluster",
+            "yellow cluster"
+          ]
+        }
+      ]
+    },
+    "baseline_min_distance": {
+      "baseComponent": "delaunayScatterPlot",
+      "instruction": "Which two clusters are closest to each other?",
+      "parameters": {
+        "group": "baseline",
+        "dataset": "cube_diff_size_diff_dist/cube_diff_size_diff_dist_with_labels",
+        "x": "x",
+        "y": "y",
+        "ids": "id",
+        "category": "class",
+        "brushType": "disabled",
+        "visualization": "cube_diff_size_diff_dist/baseline_cube_diff_size_diff_dist"
+      },
+      "response": [
+        {
+          "id": "response",
+          "prompt": "Answer:",
+          "location": "sidebar",
+          "type": "checkbox",
+          "options": [
+            "blue cluster",
+            "purple cluster",
+            "orange cluster",
+            "yellow cluster"
+          ],
+          "minSelections": 2,
+          "maxSelections": 2
+        }
+      ],
+      "correctAnswer": [
+        {
+          "id": "response",
+          "answer": [
+            "purple cluster",
+            "yellow cluster"
+          ]
+        }
+      ]
+    },
+    "baseline_max_density": {
+      "baseComponent": "delaunayScatterPlot",
+      "instruction": "Which cluster is the most dense, i.e. in which cluster are the points closest together?",
+      "parameters": {
+        "group": "baseline",
+        "dataset": "cube_diff_size_diff_dist/cube_diff_size_diff_dist_with_labels",
+        "x": "x",
+        "y": "y",
+        "ids": "id",
+        "category": "class",
+        "brushType": "disabled",
+        "visualization": "cube_diff_size_diff_dist/baseline_cube_diff_size_diff_dist"
+      },
+      "response": [
+        {
+          "id": "response",
+          "prompt": "Answer:",
+          "location": "sidebar",
+          "type": "radio",
+          "options": [
+            "blue cluster",
+            "purple cluster",
+            "orange cluster",
+            "yellow cluster"
+          ]
+        }
+      ],
+      "correctAnswer": [
+        {
+          "id": "response",
+          "answer": "yellow cluster"
+        }
+      ]
+    },
+    "baseline_min_density": {
+      "baseComponent": "delaunayScatterPlot",
+      "instruction": "Which cluster is the least dense, i.e. in which cluster are the points spread furthest apart?",
+      "parameters": {
+        "group": "baseline",
+        "dataset": "cube_diff_size_diff_dist/cube_diff_size_diff_dist_with_labels",
+        "x": "x",
+        "y": "y",
+        "ids": "id",
+        "category": "class",
+        "brushType": "disabled",
+        "visualization": "cube_diff_size_diff_dist/baseline_cube_diff_size_diff_dist"
+      },
+      "response": [
+        {
+          "id": "response",
+          "prompt": "Answer:",
+          "location": "sidebar",
+          "type": "radio",
+          "options": [
+            "blue cluster",
+            "purple cluster",
+            "orange cluster",
+            "yellow cluster"
+          ]
+        }
+      ],
+      "correctAnswer": [
+        {
+          "id": "response",
+          "answer": "blue cluster"
+        }
+      ]
+    },
+    "pt_baseline_identification": {
+      "baseComponent": "post-task"
+    },
+    "pt_delaunay_identification": {
+      "baseComponent": "post-task"
+    },
+    "pt_baseline_max_distance": {
+      "baseComponent": "post-task"
+    },
+    "pt_delaunay_max_distance": {
+      "baseComponent": "post-task"
+    },
+    "pt_baseline_min_distance": {
+      "baseComponent": "post-task"
+    },
+    "pt_delaunay_min_distance": {
+      "baseComponent": "post-task"
+    },
+    "pt_baseline_max_density": {
+      "baseComponent": "post-task"
+    },
+    "pt_delaunay_max_density": {
+      "baseComponent": "post-task"
+    },
+    "pt_baseline_min_density": {
+      "baseComponent": "post-task"
+    },
+    "pt_delaunay_min_density": {
+      "baseComponent": "post-task"
+    },
+    "post-study-survey": {
+      "type": "questionnaire",
+      "response": [
+        {
+          "id": "openPositive",
+          "prompt": "What did you find most helpful about the layout enrichment? Which tasks did help with the most?",
+          "location": "belowStimulus",
+          "type": "longText",
+          "placeholder": "Enter your answer here.",
+          "required": true
+        },
+        {
+          "id": "openNegative",
+          "prompt": "What did you find most confusing or distracting about the layout enrichment? Which tasks did it not help with?",
+          "location": "belowStimulus",
+          "type": "longText",
+          "placeholder": "Enter your answer here.",
+          "required": true
+        }
+      ]
+    },
+    "screening": {
+      "type": "questionnaire",
+      "response": [
+        {
+          "id": "DRfamilarity",
+          "prompt": "Are you familiar with dimensionality reduction techniques (e.g., PCA, UMAP or t-SNE)?",
+          "location": "belowStimulus",
+          "type": "radio",
+          "options": [
+            "Very unfamiliar",
+            "Unfamiliar",
+            "Moderately familiar",
+            "Familiar",
+            "Very familiar"
+          ]
+        },
+        {
+          "id": "visFamilarity",
+          "prompt": "Are you familiar with visualizations of high-dimensional data?",
+          "location": "belowStimulus",
+          "type": "radio",
+          "options": [
+            "Very unfamiliar",
+            "Unfamiliar",
+            "Moderately familiar",
+            "Familiar",
+            "Very familiar"
+          ]
+        }
+      ],
+      "correctAnswer": [
+        {
+          "id": "DRfamilarity",
+          "answer": [
+            "Moderately familiar",
+            "Familiar",
+            "Very familiar"
+          ]
+        },
+        {
+          "id": "visFamilarity",
+          "answer": [
+            "Moderately familiar",
+            "Familiar",
+            "Very familiar"
+          ]
+        }
+      ]
+    }
+  },
+  "sequence": {
+    "order": "fixed",
+    "components": [
+      "introduction",
+      "consent",
+      {
+        "order": "fixed",
+        "components": [
+          "screening"
+        ],
+        "skip": [
+          {
+            "name": "screening",
+            "check": "responses",
+            "to": "screenedOut"
+          }
+        ]
+      },
+      "tutorial1",
+      "tutorial2",
+      "tutorial3",
+      "tutorial4",
+      "baseline_identification",
+      "pt_baseline_identification",
+      "delaunay_identification",
+      "pt_delaunay_identification",
+      {
+        "id": "studyContent",
+        "order": "random",
+        "components": [
+          {
+            "order": "fixed",
+            "components": [
+              "baseline_max_distance",
+              "pt_baseline_max_distance",
+              "delaunay_max_distance",
+              "pt_delaunay_max_distance"
+            ]
+          },
+          {
+            "order": "fixed",
+            "components": [
+              "baseline_min_distance",
+              "pt_baseline_min_distance",
+              "delaunay_min_distance",
+              "pt_delaunay_min_distance"
+            ]
+          },
+          {
+            "order": "fixed",
+            "components": [
+              "baseline_max_density",
+              "pt_baseline_max_density",
+              "delaunay_max_density",
+              "pt_delaunay_max_density"
+            ]
+          },
+          {
+            "order": "fixed",
+            "components": [
+              "baseline_min_density",
+              "pt_baseline_min_density",
+              "delaunay_min_density",
+              "pt_delaunay_min_density"
+            ]
+          }
+        ]
+      },
+      "$previs_delaunay.se.4dimensions-delaunay",
+      {
+        "order": "fixed",
+        "components": [
+          "post-study-survey"
+        ],
+        "skip": [
+          {
+            "name": "post-study-survey",
+            "check": "response",
+            "responseId": "openPositive",
+            "value": "",
+            "comparison": "notEqual",
+            "to": "end"
+          }
+        ]
+      },
+      "screenedOut"
+    ]
+  }
+}

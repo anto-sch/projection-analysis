@@ -1,6 +1,10 @@
 {
   "$schema": "https://raw.githubusercontent.com/revisit-studies/study/v2.3.2/src/parser/GlobalConfigSchema.json",
   "configsList": [
+    "projection-analysis-delaunay",
+    "projection-analysis-checkviz",
+    "projection-analysis-matrix",
+    "projection-analysis",
     "tutorial",
     "tutorial-replication",
     "demo-html",
@@ -52,6 +56,18 @@
     "test-step-logic"
   ],
   "configs": {
+    "projection-analysis-delaunay": {
+      "path": "projection-analysis-delaunay/config.json"
+    },
+    "projection-analysis-checkviz": {
+      "path": "projection-analysis-checkviz/config.json"
+    },
+    "projection-analysis-matrix": {
+      "path": "projection-analysis-matrix/config.json"
+    },
+    "projection-analysis": {
+      "path": "projection-analysis/config.json"
+    },
     "tutorial": {
       "path": "tutorial/config.json"
     },
