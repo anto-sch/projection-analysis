@@ -539,52 +539,45 @@
         }
       ]
     },
-    "screening": {
+    "screening_DRfamiliarity": {
       "type": "questionnaire",
       "response": [
         {
-          "id": "DRfamilarity",
+          "id": "DRfamiliarity",
           "prompt": "Are you familiar with dimensionality reduction techniques (e.g., PCA, UMAP or t-SNE)?",
           "location": "belowStimulus",
           "type": "radio",
           "options": [
-            "Very unfamiliar",
-            "Unfamiliar",
-            "Moderately familiar",
-            "Familiar",
-            "Very familiar"
-          ]
-        },
-        {
-          "id": "visFamilarity",
-          "prompt": "Are you familiar with visualizations of high-dimensional data?",
-          "location": "belowStimulus",
-          "type": "radio",
-          "options": [
-            "Very unfamiliar",
-            "Unfamiliar",
-            "Moderately familiar",
-            "Familiar",
-            "Very familiar"
+            "Yes",
+            "No"
           ]
         }
       ],
       "correctAnswer": [
         {
-          "id": "DRfamilarity",
-          "answer": [
-            "Moderately familiar",
-            "Familiar",
-            "Very familiar"
-          ]
-        },
+          "id": "DRfamiliarity",
+          "answer": "Yes"
+        }
+      ]
+    },
+    "screening_visFamiliarity": {
+      "type": "questionnaire",
+      "response": [
         {
-          "id": "visFamilarity",
-          "answer": [
-            "Moderately familiar",
-            "Familiar",
-            "Very familiar"
+          "id": "visFamiliarity",
+          "prompt": "Are you familiar with visualizations of high-dimensional data?",
+          "location": "belowStimulus",
+          "type": "radio",
+          "options": [
+            "Yes",
+            "No"
           ]
+        }
+      ],
+      "correctAnswer": [
+        {
+          "id": "visFamiliarity",
+          "answer": "Yes"
         }
       ]
     }
@@ -597,12 +590,14 @@
       {
         "order": "fixed",
         "components": [
-          "screening"
+          "screening_DRfamiliarity",
+          "screening_visFamiliarity"
         ],
         "skip": [
           {
-            "name": "screening",
-            "check": "responses",
+            "check": "block",
+            "condition": "numIncorrect",
+            "value": 2,
             "to": "screenedOut"
           }
         ]
