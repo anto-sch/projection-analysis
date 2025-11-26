@@ -16,13 +16,12 @@ import { BrushParams, BrushState, SelectionType } from './types';
 export function BrushPlot({
   parameters, setAnswer, provenanceState, updateState = () => null,
 }: StimulusParams<BrushParams, { all: { brush: BrushState } }> & { updateState: (b: BrushState) => void }) {
-  const [filteredTable, setFilteredTable] = useState<ColumnTable | null>(null);
+  const [filteredTable, setFilteredTable] = useState<ColumnTable | null>(null); // eslint-disable-line no-use-before-define
   const [brushState, setBrushState] = useState<BrushState>(provenanceState ? (provenanceState.all.brush || provenanceState.all) : {
     hasBrush: false, x1: 0, y1: 0, x2: 0, y2: 0, ids: [],
   });
 
   const [selectedClusters, setSelectedClusters] = useState<string[][]>([]);
-  const lastSplitIdx = useRef(0);
 
   const { clusters, noClusters } = parameters;
 
@@ -160,9 +159,9 @@ export function BrushPlot({
       answers: {
         // [clusters]: brushState.ids,
         // [noClusters]: brushState.ids.length
-        [clusters]: selectedClusters.flatMap((inner, i) => i < selectedClusters.length - 1 ? [...inner, 'x'] : inner),
-        [noClusters]: selectedClusters.length+1
-      },
+        [clusters]: selectedClusters.flatMap((inner, i) => (i < selectedClusters.length - 1 ? [...inner, 'x'] : inner)),
+        [noClusters]: selectedClusters.length + 1
+      }
     });
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [brushState, fullTable, parameters, trrack, setAnswer, debouncedCallback, actions, noClusters, selectedClusters]);
@@ -181,25 +180,17 @@ export function BrushPlot({
   const addNewCluster = useCallback(() => {
     const ids = brushState.ids;
 
-     // Flatten myVar so we have a set of ALL already-included IDs
+    // Flatten myVar so we have a set of ALL already-included IDs
     const alreadyIncluded = new Set(selectedClusters.flat());
 
     // Filter ids to get the ones not already included
-    const newIds = ids.filter(id => !alreadyIncluded.has(id));
+    const newIds = ids.filter((id) => !alreadyIncluded.has(id));
 
     if (newIds.length > 0) {
-      setSelectedClusters(prev => [...prev, newIds]);
-      // selectedClusters.push(newIds);
+      setSelectedClusters((prev) => [...prev, newIds]);
     }
 
-    // console.log(brushState.ids)
-    // console.log(selectedClusters);
-    // console.log(selectedClusters.length);
-
   }, [brushState, selectedClusters, noClusters]);
-
-  console.log('length outside', selectedClusters.length)
-  console.log('clusters outside', selectedClusters);
 
   return data ? (
     <Stack gap="xs">
