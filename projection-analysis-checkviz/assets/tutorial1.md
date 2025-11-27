@@ -18,10 +18,3 @@ Clusters are groups of points that are close together in the scatterplot. These 
 Density refers to how tightly packed the points are in a cluster. A dense cluster has many points close together; a sparse cluster has points that are spread apart.
 
 <img src="./projection-analysis/assets/density.png" width="300px" height="auto">
-
----
-
-### What are Outliers?
-Outliers are points that don’t belong to any cluster—they’re far away from other groups. Outliers can indicate special or unusual cases in the data.
-
-<img src="./projection-analysis/assets/outliers.png" width="300px" height="auto">
