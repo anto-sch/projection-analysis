@@ -6,7 +6,7 @@
     "authors": [
       "Waqar Hassan",
       "Antonia Schlieder",
-      "Filip Sadlp",
+      "Filip Sadlo",
       "Luis Gustavo Nonato"
     ],
     "date": "2025-11-03",
@@ -522,6 +522,14 @@
       "type": "questionnaire",
       "response": [
         {
+          "id": "experience",
+          "prompt": "In which ways have you interacted with dimensionality reduction techniques and/or the visualization of high dimensional data?",
+          "location": "belowStimulus",
+          "type": "longText",
+          "placeholder": "Enter your answer here.",
+          "required": true
+        },
+        {
           "id": "openPositive",
           "prompt": "What did you find most helpful about the layout enrichment? Which tasks did help with the most?",
           "location": "belowStimulus",
@@ -544,7 +552,7 @@
       "response": [
         {
           "id": "DRfamiliarity",
-          "prompt": "Are you familiar with dimensionality reduction techniques (e.g., PCA, UMAP or t-SNE)?",
+          "prompt": "Are you somewhat familiar with dimensionality reduction techniques (e.g., PCA, UMAP or t-SNE)?",
           "location": "belowStimulus",
           "type": "radio",
           "options": [
@@ -565,7 +573,7 @@
       "response": [
         {
           "id": "visFamiliarity",
-          "prompt": "Are you familiar with visualizations of high-dimensional data?",
+          "prompt": "Are you somewhat familiar with visualizations of high-dimensional data?",
           "location": "belowStimulus",
           "type": "radio",
           "options": [

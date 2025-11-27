@@ -7,7 +7,7 @@ To help you better understand what the scatterplot is showing, we add a color ma
 The color map shows two types of distortions in the scatterplot: areas where points look further apart than they originally are (tears) and areas where points look closer together than in the original space (false neighbors).
 - **White areas:** Points here are close together in both the scatterplot *and* the original space.
 - **Green areas:** Points are torn apart in the scatterplot. In the original space, they are closer together.
-- **Purple areas:** Points are false neighbors in the scatterplot. In the original space, they are closer together.
+- **Purple areas:** Points are false neighbors in the scatterplot. In the original space, they are further apart.
 - **Black areas:** Points here are shuffled in the scatterplot. In these areas both tearing and false neighbors occur.
 
 <img src="./projection-analysis/assets/tutorial_images/checkviz_4_clusters_no_label.png" width="600px" height="auto">
